@@ -1,14 +1,14 @@
 import express from 'express'
-import { categoriesRoutes } from './routes/categories.routes';
-import { specificationsRoutes } from './routes/specifications.routes';
+import swaggerUi from 'swagger-ui-express'
+import { router } from './routes';
+import swaggerFile from './swagger.json'
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
-//se eu passar o pathname como primeiro argumento, dentro das categoriesRoutes o pathname sempre sera categories e eu nao preciso escrever o path em toda rota la dentro do arquivo
-app.use("/categories", categoriesRoutes);
-app.use("/specifications", specificationsRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+app.use(router);
 
 app.listen(3333, () => {
   console.log("Server is running!")

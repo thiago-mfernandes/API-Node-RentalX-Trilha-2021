@@ -1,14 +1,26 @@
-import { Category } from "../model/Category";
-import { ICategoriesRepository, ICreateCategoryDTO } from "./ICategoriesRepository";
+import { Category } from "../../model/Category";
+import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository";
+
 
 class CategoriesRepository implements ICategoriesRepository {
-  //tenho um atributo categoris do tipo da classe Category
+  //tenho um atributo categories do tipo da classe Category
   //somente meu repositorio tem acesso ao atributo categories, somente ele pode manipular esse atributo
   private categories: Category[];
 
+  private static INSTANCE: CategoriesRepository;
+
   //inicializo minha categories sob a responsabilidade do construtor. Quando uma instancia de categories for iniciada, um novo array vazio do tipo Category será iniciado
-  constructor() {
+
+  //posteriormente, somente minha classe pode instanciar um CategoriesRepository
+  private constructor() {
     this.categories = [];
+  }
+
+  public static getInstance(): CategoriesRepository {
+    if(!CategoriesRepository.INSTANCE) {
+      CategoriesRepository.INSTANCE = new CategoriesRepository()
+    }
+    return CategoriesRepository.INSTANCE;
   }
 
   //funcao responsavel por cadastrar a nossa categoria, recebendo por parametro minhas informacoes

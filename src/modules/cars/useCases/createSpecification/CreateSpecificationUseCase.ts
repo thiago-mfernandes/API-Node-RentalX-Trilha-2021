@@ -1,11 +1,11 @@
-import { ISpecificationsRepository } from "../repositories/ISpecificationsRepository"
+import { ISpecificationsRepository } from "../../repositories/ISpecificationsRepository"
 
 interface IRequest {
   name: string;
   description: string;
 }
 
-class CreateSpecificationService {
+class CreateSpecificationUseCase {
   //atributo
   private specificatioRepository: ISpecificationsRepository;
   //meu servico recebe um parametro
@@ -30,4 +30,4 @@ class CreateSpecificationService {
   }
 }
 
-export { CreateSpecificationService }
+export { CreateSpecificationUseCase }
