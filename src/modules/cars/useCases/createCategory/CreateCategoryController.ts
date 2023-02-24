@@ -2,9 +2,7 @@ import { Request, Response } from "express";
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
 class CreateCategoryController{
-  //
-
-  //
+  
   constructor(private createCategoryUseCase: CreateCategoryUseCase) {
     //criar uma instancia de servico, passando meu repository como parametro
   }
