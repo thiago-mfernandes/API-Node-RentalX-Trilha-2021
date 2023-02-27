@@ -1,19 +1,17 @@
+import 'dotenv/config'
+import 'reflect-metadata'
 import { DataSource } from 'typeorm';
 
-const AppDataSource = new DataSource({
+const port = process.env.TYPEORM_PORT as unknown as number | undefined;
+
+export const AppDataSource = new DataSource({
   type: 'postgres',
-  port: 5432,
-  host: 'localhost',
-  username: 'docker',
-  password: 'ignite',
-  database: 'rentalx', // o nome correto do database é 'rentx'
+  port: port,
+  host: process.env.TYPEORM_HOST,
+  username: process.env.TYPEORM_USERNAME,
+  password: process.env.TYPEORM_PASSWORD,
+  database: process.env.TYPEORM_NAME, 
+  entities: [`${__dirname}/**/entities/*.{ts,js}`],
+  migrations: [`${__dirname}/**/migrations/*.{ts,js}`],
 });
 
-// Deve exportar essa função
-export function createConnection(
-  host = 'database_ignite',
-): Promise<DataSource> {
-  return AppDataSource.setOptions({ host }).initialize();
-}
-
-export default AppDataSource;
