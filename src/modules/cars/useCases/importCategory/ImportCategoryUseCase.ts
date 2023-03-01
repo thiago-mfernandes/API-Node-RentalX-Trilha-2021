@@ -1,6 +1,7 @@
 import fs from 'fs'
 import { parse as csvParse } from "csv-parse";
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
+import { inject, injectable } from 'tsyringe';
 
 /**
  * meu arquivo file tem a seguinte estrutura:
@@ -16,9 +17,12 @@ interface IImportCategory {
   description: string;
 }
 
+@injectable()
 class ImportCategoryUseCase {
-
-  constructor(private categoriesRespository: ICategoriesRepository) {}
+  constructor(
+    @inject("CategoriesRepository")
+    private categoriesRespository: ICategoriesRepository
+  ) {}
 
   loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
     //la embaixo no return, vou ter um return [] vazio, pois o carregamento do arquivo nao terminou de ser executado, entao preciso retornar uma promise
@@ -60,10 +64,10 @@ class ImportCategoryUseCase {
     categories.map(async(category) => {
       const { description, name } = category;
       //procuro se existe essa lista, mesmo que seja outro arquivo
-      const existCategory = this.categoriesRespository.findByName(name);
+      const existCategory = await this.categoriesRespository.findByName(name);
 
       if(!existCategory) {
-        this.categoriesRespository.create({
+        await this.categoriesRespository.create({
           name, description
         })
       }

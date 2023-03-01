@@ -1,5 +1,5 @@
 
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
 //entity(tabela)
@@ -7,16 +7,20 @@ import { v4 as uuidV4 } from "uuid";
 class Category {
   //atributos|propriedades
 
+  //referencia da tabela categories coluna name
   @PrimaryGeneratedColumn("uuid")
   id?: string;
 
+  //referencia da tabela categories coluna name
   @Column({ type: 'varchar', unique: true })
   name: string;
 
+//referencia da tabela categories coluna description
   @Column({ type: 'varchar' })
   description: string;
 
-  @Column({ type: 'timestamp', default: 'now()'})
+//referencia da tabela categories coluna created_at
+  @CreateDateColumn()
   created_at: Date;
 
   //construtor 

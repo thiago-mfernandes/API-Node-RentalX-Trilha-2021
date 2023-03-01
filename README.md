@@ -47,3 +47,6 @@ docker stop nome_container
 
 mode <-> orm <-> banco de dados
 o orm faz o mapeamento das informacoes de meu model e transforma isso numa tabela no meu bd
+
+npm run typeorm migration:create src/database/migrations/CreateCategoryTable
+npm run typeorm -- -d ./src/database/data-source.ts migration:run

@@ -1,21 +1,21 @@
 import { Request, Response } from "express";
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
+import { container } from "tsyringe"
+
 
 class CreateCategoryController{
   
-  constructor(private createCategoryUseCase: CreateCategoryUseCase) {
-    //criar uma instancia de servico, passando meu repository como parametro
-  }
-
-  //metodo handle manipula
-  handle(req: Request, res: Response): Response {
+  async handle(req: Request, res: Response): Promise<Response> {
     //recebo as informacoes do front
-  const { name, description } = req.body;
-  
-  //executar
-  this.createCategoryUseCase.execute({ name, description })
+    const { name, description } = req.body;
 
-  return res.status(201).send();
+    //instancio com injecao
+    const createCategoryUseCase = container.resolve(CreateCategoryUseCase);
+        
+    //executar
+    await createCategoryUseCase.execute({ name, description })
+
+    return res.status(201).send();
   }
 }
 
