@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface IRequest {
@@ -20,7 +21,7 @@ class CreateCategoryUseCase {
     const categoryAlreadyExists = await this.categoriesRepository.findByName(name);
     if(categoryAlreadyExists) {
       //como meu service nao tem acesso a request e response, se eu tiver um erro:
-      throw new Error("Category Already exists!")
+      throw new AppError("Category Already exists!")
     }
 
     //chamo meu repository que eh onde fica o metodo de manipulacao de dados, passando os parametros
