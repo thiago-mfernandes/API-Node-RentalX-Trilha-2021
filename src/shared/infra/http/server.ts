@@ -4,11 +4,11 @@ import "express-async-errors"
 import swaggerUi from 'swagger-ui-express'
 import cors from 'cors'
 
-import { AppDataSource } from './database/data-source'
-import "./shared/container"
-import { router } from './routes';
-import swaggerFile from './swagger.json'
-import { AppError } from './errors/AppError'
+import "@shared/container"
+import swaggerFile from '../../../swagger.json'
+import { AppDataSource } from '@shared/infra/typeorm/data-source'
+import { AppError } from '@shared/errors/AppError'
+import { router } from '@shared/infra/http/routes'
 
 
 AppDataSource.initialize().then(() => {
