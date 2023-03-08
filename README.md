@@ -48,8 +48,8 @@ docker stop nome_container
 mode <-> orm <-> banco de dados
 o orm faz o mapeamento das informacoes de meu model e transforma isso numa tabela no meu bd
 
-npm run typeorm migration:create src/database/migrations/CreateCategoryTable
-npm run typeorm -- -d ./src/database/data-source.ts migration:run
+npm run typeorm migration:create src/shared/infra/typeorm/migrations/CreateCars
+npm run typeorm -- -d ./src/shared/infra/typeorm/data-source.ts migration:run
 
 **Requisitos Funcionais**
 Funcionalidades que a aplicação vai ter: criar um usuario, recuperar senha, etc
@@ -65,15 +65,15 @@ Nao deve ser possivel cadastrar uma categoria ja existente
 
 # Cadastro de carro
 **RF**
-[] - Deve ser possível cadastrar um novo carro.
+[x] - Deve ser possível cadastrar um novo carro.
 [] - Deve ser possível listar todas as categorias.
 
 **RNF**
 **RN**
-[] - Não deve ser possível cadastrar um carro com uma placa já existente.
+[x] - Não deve ser possível cadastrar um carro com uma placa já existente.
 [] - Não deve ser possivel alterar a placa de um carra cadastrado.
-[] - O carro deve ser cadastrado com disponibilidade por padrão.
-[] - O usuário responsável pelo cadastro deve ser um usuári administrador.
+[x] - O carro deve ser cadastrado com disponibilidade por padrão.
+* [] - O usuário responsável pelo cadastro deve ser um usuário administrador.
 
 # Listagem de carro
 
